@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBT301 — Isu Bahasa Melayu sebagai Bahasa Kedua ASEAN</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', sans-serif; background: #f5f5f3; padding: 1.5rem 1rem; min-height: 100vh; }
+#fw { max-width: 640px; margin: 0 auto; }
+#header-band { border-radius: 20px 20px 0 0; background: #173404; padding: 1.25rem 1.75rem 1.1rem; }
+#hbt-code { font-size: 11px; font-weight: 800; color: #97C459; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+#hbt-title { font-family: 'Playfair Display', serif; font-size: 17px; color: #EAF3DE; line-height: 1.35; margin-bottom: 6px; }
+#hbt-week { font-size: 12px; color: #C0DD97; font-weight: 700; }
+#prog-bg { height: 5px; background: #C0DD97; }
+#prog-fill { height: 5px; background: #3B6D11; transition: width 0.4s; width: 0%; }
+#meta { display: flex; justify-content: space-between; align-items: center; padding: 10px 1.75rem 8px; border-left: 0.5px solid #e0ddd6; border-right: 0.5px solid #e0ddd6; background: #fff; }
+#ctr { font-size: 13px; color: #888; font-weight: 700; }
+#skor { font-size: 13px; color: #888; }
+#card-outer { border-left: 0.5px solid #e0ddd6; border-right: 0.5px solid #e0ddd6; border-bottom: 0.5px solid #e0ddd6; border-radius: 0 0 20px 20px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+#illus-band { height: 110px; overflow: hidden; flex-shrink: 0; }
+#card-body { padding: 1.25rem 1.75rem 1.25rem; flex: 1; display: flex; flex-direction: column; }
+#tag-pill { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 12px; border-radius: 99px; margin-bottom: 12px; background: #97C459; color: #173404; }
+#soalan { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1.45; color: #1a1a1a; margin-bottom: 1rem; flex: 1; }
+#jawapan-wrap { border-radius: 12px; padding: 14px 16px; margin-bottom: 1rem; display: none; background: #EAF3DE; border: 0.5px solid #97C459; }
+#jawapan-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 5px; color: #3B6D11; }
+#jawapan { font-size: 18px; font-weight: 700; line-height: 1.45; color: #173404; }
+#btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.aksi { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; padding: 8px 18px; border-radius: 10px; cursor: pointer; border: none; transition: transform 0.1s; }
+.aksi:active { transform: scale(0.97); }
+#btn-show { background: #173404; color: #EAF3DE; }
+#btn-tahu { background: #639922; color: #fff; display: none; }
+#btn-ulang { background: #3B6D11; color: #EAF3DE; display: none; }
+#btn-skip { background: #f1efe8; color: #5F5E5A; border: 0.5px solid #d3d1c7; margin-left: auto; }
+#summary { display: none; border-radius: 0 0 20px 20px; border: 0.5px solid #e0ddd6; border-top: none; padding: 2.5rem 2rem; text-align: center; background: #fff; }
+#sum-icon { font-size: 44px; color: #3B6D11; margin-bottom: 10px; }
+#sum-title { font-family: 'Playfair Display', serif; font-size: 24px; color: #1a1a1a; margin-bottom: 6px; }
+#sum-sub { font-size: 15px; color: #666; margin-bottom: 1.5rem; line-height: 1.6; }
+.sum-btn { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; padding: 9px 20px; border-radius: 10px; cursor: pointer; border: none; margin: 4px; }
+#sb1 { background: #173404; color: #EAF3DE; }
+#sb2 { background: #639922; color: #fff; }
+</style>
+</head>
+<body>
+<div id="fw">
+  <div id="header-band">
+    <div id="hbt-code">HBT301 · Perkamusan dan Peristilahan</div>
+    <div id="hbt-title">Isu Bahasa Melayu sebagai Bahasa Kedua ASEAN</div>
+  </div>
+  <div id="prog-bg"><div id="prog-fill"></div></div>
+  <div id="meta">
+    <span id="ctr">Kad 1 / 20</span>
+    <span id="skor">Tahu: 0 &nbsp;|&nbsp; Ulang: 0</span>
+  </div>
+  <div id="card-outer">
+    <div id="illus-band"></div>
+    <div id="card-body">
+      <div id="tag-pill">Soalan</div>
+      <p id="soalan">Memuatkan...</p>
+      <div id="jawapan-wrap">
+        <div id="jawapan-label">Jawapan</div>
+        <div id="jawapan"></div>
+      </div>
+      <div id="btn-row">
+        <button class="aksi" id="btn-show" onclick="tunjuk()">Tunjuk jawapan</button>
+        <button class="aksi" id="btn-tahu" onclick="mark(true)">Tahu ✓</button>
+        <button class="aksi" id="btn-ulang" onclick="mark(false)">Ulang lagi</button>
+        <button class="aksi" id="btn-skip" onclick="skip()">Langkau →</button>
+      </div>
+    </div>
+  </div>
+  <div id="summary">
+    <div id="sum-icon">★</div>
+    <div id="sum-title">Sesi selesai!</div>
+    <div id="sum-sub"></div>
+    <div>
+      <button class="sum-btn" id="sb1" onclick="mula()">Mula semula</button>
+      <button class="sum-btn" id="sb2" onclick="ulangiSalah()">Ulang yang salah</button>
+    </div>
+  </div>
+</div>
+<script>
+const semua = [
+  {s:"Apakah fungsi MABBIM?",j:"MABBIM menyelaraskan perkembangan bahasa dan istilah antara Brunei, Indonesia dan Malaysia sejak tahun 1972.",k:"serantau"},
+  {s:"Apakah fungsi MASTERA?",j:"MASTERA memperkukuh kerjasama sastera dan kebudayaan serantau sejak tahun 1995.",k:"serantau"},
+  {s:"Adakah cadangan menjadikan Bahasa Melayu sebagai bahasa kedua ASEAN merupakan idea baharu?",j:"Tidak. Cadangan ini pernah dikemukakan oleh Najib Razak (2017), dihidupkan semula oleh Ismail Sabri (2022) dan diteruskan oleh Anwar Ibrahim.",k:"sejarah"},
+  {s:"Mengapakah cadangan Bahasa Melayu sebagai bahasa kedua ASEAN menerima reaksi daripada Indonesia?",j:"Indonesia berpendapat bahasa Indonesia mempunyai jumlah penutur yang besar serta kedudukan sejarah, undang-undang dan linguistik yang kukuh untuk dipertimbangkan sebagai bahasa serantau.",k:"identiti"},
+  {s:"Adakah Indonesia menolak terus cadangan Bahasa Melayu sebagai bahasa kedua ASEAN?",j:"Tidak. Indonesia berpandangan perkara tersebut masih boleh dikaji dan dibahaskan dengan lebih lanjut.",k:"identiti"},
+  {s:"Apakah salah faham utama yang mencetuskan polemik?",j:"Ramai menyangka cadangan itu bertujuan mengangkat bahasa Melayu Malaysia sahaja, sedangkan yang dimaksudkan ialah bahasa Melayu Nusantara atau bahasa Melayu supra.",k:"konsep"},
+  {s:"Apakah yang dimaksudkan dengan bahasa Melayu supra?",j:"Bahasa Melayu supra ialah bahasa Melayu yang merentasi sempadan negara moden dan menjadi warisan bersama seluruh Alam Melayu sebelum penjajahan Barat.",k:"konsep"},
+  {s:"Apakah hubungan bahasa Indonesia dengan bahasa Melayu?",j:"Bahasa Indonesia berkembang daripada akar bahasa Melayu dan merupakan salah satu cabang utama bahasa Melayu Nusantara.",k:"konsep"},
+  {s:"Apakah pandangan Awang Sariyan tentang bahasa Indonesia?",j:"Nama 'bahasa Indonesia' lahir daripada proses pembinaan identiti kebangsaan Indonesia, tetapi akarnya tetap berasal daripada bahasa Melayu.",k:"konsep"},
+  {s:"Apakah perbezaan antara bahasa utama ASEAN dan bahasa kedua ASEAN?",j:"Bahasa utama ASEAN ialah bahasa rasmi utama organisasi, manakala bahasa kedua ASEAN berfungsi sebagai bahasa kerja tambahan.",k:"serantau"},
+  {s:"Adakah cadangan bahasa kedua ASEAN bertujuan menggantikan bahasa Inggeris?",j:"Tidak. Bahasa Melayu dicadangkan sebagai bahasa kerja tambahan dan bukan pengganti bahasa Inggeris.",k:"serantau"},
+  {s:"Mengapakah istilah 'Bahasa Melayu Nusantara' dicadangkan?",j:"Untuk mengelakkan pertikaian nama bahasa dan menonjolkan warisan linguistik bersama masyarakat Nusantara.",k:"konsep"},
+  {s:"Siapakah yang mencadangkan istilah 'Bahasa Melayu Nusantara'?",j:"ABIM (Angkatan Belia Islam Malaysia).",k:"serantau"},
+  {s:"Apakah inti pati sebenar polemik Bahasa Melayu sebagai bahasa kedua ASEAN?",j:"Polemik ini bukan tentang bahasa Melayu lebih unggul daripada bahasa Indonesia, tetapi tentang hubungan antara identiti kebangsaan dan warisan bahasa serantau.",k:"konsep"},
+  {s:"Mengapakah istilah 'Bahasa Melayu Nusantara' dianggap sebagai jalan tengah?",j:"Kerana istilah tersebut mengiktiraf warisan linguistik bersama tanpa mengutamakan identiti kebangsaan mana-mana negara.",k:"konsep"},
+  {s:"Apakah cadangan Ismail Sabri untuk merealisasikan usaha ini?",j:"Menubuhkan kumpulan bertindak di peringkat tertinggi ASEAN bagi merangka pelan jangka panjang penggunaan Bahasa Melayu di rantau ini.",k:"sejarah"},
+  {s:"Apakah cabaran terbesar dalam usaha menjadikan Bahasa Melayu sebagai bahasa kedua ASEAN?",j:"Mengimbangi identiti kebangsaan negara anggota dengan konsep bahasa serantau yang lebih luas iaitu bahasa Melayu Nusantara.",k:"identiti"},
+  {s:"Mengapakah usaha menjadikan Bahasa Melayu sebagai bahasa kedua ASEAN memerlukan diplomasi yang berhati-hati?",j:"Kerana bahasa berkait rapat dengan identiti negara, sejarah, budaya dan hubungan diplomatik antara negara anggota ASEAN.",k:"identiti"},
+  {s:"Apakah peranan bahasa dalam pembinaan identiti nasional?",j:"Bahasa bukan sekadar alat komunikasi tetapi juga lambang sejarah, budaya dan jati diri sesebuah negara.",k:"identiti"},
+  {s:"Apakah tema utama yang dapat dirumuskan daripada isu ini?",j:"Ketegangan antara identiti kebangsaan dan konsep bahasa serantau yang dikongsi bersama oleh masyarakat Nusantara.",k:"identiti"}
+];
+
+const tema = {bg:"#EAF3DE", acc:"#3B6D11", pill:"#97C459", pillTxt:"#173404"};
+
+const ilus = {
+  sejarah: (c) => `<svg width="100%" height="110" viewBox="0 0 640 110" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="110" fill="${c.bg}"/><circle cx="90" cy="55" r="6" fill="${c.acc}"/><circle cx="280" cy="55" r="6" fill="${c.acc}"/><circle cx="470" cy="55" r="6" fill="${c.acc}"/><line x1="90" y1="55" x2="470" y2="55" stroke="${c.acc}" stroke-width="2" opacity="0.4"/><rect x="50" y="68" width="80" height="24" rx="7" fill="${c.pill}" opacity="0.8"/><text x="90" y="84" text-anchor="middle" font-size="12" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">2017</text><rect x="240" y="68" width="80" height="24" rx="7" fill="${c.pill}" opacity="0.6"/><text x="280" y="84" text-anchor="middle" font-size="12" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">2022</text><rect x="430" y="68" width="80" height="24" rx="7" fill="${c.pill}" opacity="0.4"/><text x="470" y="84" text-anchor="middle" font-size="12" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">Kini</text><rect x="220" y="16" width="200" height="28" rx="8" fill="${c.acc}" opacity="0.12"/><text x="320" y="35" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.acc}">Garis Masa Cadangan</text></svg>`,
+  identiti: (c) => `<svg width="100%" height="110" viewBox="0 0 640 110" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="110" fill="${c.bg}"/><path d="M60 25 L60 92 M60 25 L150 32 L60 50 Z" fill="${c.acc}" opacity="0.25"/><rect x="180" y="20" width="180" height="32" rx="8" fill="${c.pill}" opacity="0.8"/><text x="270" y="40" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">Identiti Kebangsaan</text><rect x="180" y="58" width="180" height="32" rx="8" fill="${c.pill}" opacity="0.5"/><text x="270" y="78" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">Bahasa Serantau</text><text x="395" y="58" font-size="22" fill="${c.acc}" opacity="0.6">↔</text><rect x="420" y="34" width="190" height="40" rx="10" fill="${c.acc}" opacity="0.1"/><text x="515" y="58" text-anchor="middle" font-size="12" font-family="Nunito,sans-serif" font-weight="800" fill="${c.acc}">Ketegangan Tema</text></svg>`,
+  konsep: (c) => `<svg width="100%" height="110" viewBox="0 0 640 110" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="110" fill="${c.bg}"/><rect x="60" y="30" width="180" height="50" rx="10" fill="${c.pill}" opacity="0.8"/><text x="150" y="60" text-anchor="middle" font-size="14" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">Bahasa Melayu</text><text x="320" y="62" text-anchor="middle" font-size="26" fill="${c.acc}" opacity="0.7">⊃</text><rect x="400" y="30" width="180" height="50" rx="10" fill="${c.pill}" opacity="0.5"/><text x="490" y="60" text-anchor="middle" font-size="14" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">Bahasa Indonesia</text><rect x="60" y="88" width="520" height="16" rx="6" fill="${c.acc}" opacity="0.08"/><text x="320" y="100" text-anchor="middle" font-size="11" font-family="Nunito,sans-serif" fill="${c.acc}">Bahasa Melayu Nusantara / Supra</text></svg>`,
+  serantau: (c) => `<svg width="100%" height="110" viewBox="0 0 640 110" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="110" fill="${c.bg}"/><rect x="55" y="22" width="40" height="60" fill="${c.acc}" opacity="0.18"/><rect x="63" y="30" width="8" height="10" fill="${c.bg}"/><rect x="79" y="30" width="8" height="10" fill="${c.bg}"/><rect x="63" y="48" width="8" height="10" fill="${c.bg}"/><rect x="79" y="48" width="8" height="10" fill="${c.bg}"/><rect x="63" y="66" width="8" height="10" fill="${c.bg}"/><rect x="79" y="66" width="8" height="10" fill="${c.bg}"/><rect x="140" y="18" width="140" height="28" rx="8" fill="${c.pill}" opacity="0.85"/><text x="210" y="37" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">MABBIM · 1972</text><rect x="140" y="54" width="140" height="28" rx="8" fill="${c.pill}" opacity="0.6"/><text x="210" y="73" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.pillTxt}">MASTERA · 1995</text><rect x="305" y="18" width="280" height="28" rx="8" fill="${c.acc}" opacity="0.12"/><text x="445" y="37" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.acc}">Bahasa Kerja Tambahan ASEAN</text><rect x="305" y="54" width="280" height="28" rx="8" fill="${c.acc}" opacity="0.07"/><text x="445" y="73" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="${c.acc}">ABIM · Bahasa Melayu Nusantara</text></svg>`
+};
+
+const katLabel = {sejarah:"Sejarah",identiti:"Identiti",konsep:"Konsep",serantau:"Serantau"};
+let senarai=[],idx=0,tahu=0,ulang=0,salahList=[];
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function show(id){document.getElementById(id).style.display='';}
+function hide(id){document.getElementById(id).style.display='none';}
+
+function mula(){senarai=[...semua];idx=0;tahu=0;ulang=0;salahList=[];show('card-outer');hide('summary');render();}
+function ulangiSalah(){if(!salahList.length)return;senarai=shuffle(salahList);idx=0;tahu=0;ulang=0;salahList=[];show('card-outer');hide('summary');render();}
+
+function render(){
+  if(idx>=senarai.length){tunjukSummary();return;}
+  const d=senarai[idx],t=tema;
+  document.getElementById('illus-band').innerHTML=ilus[d.k](t);
+  const pill=document.getElementById('tag-pill');
+  pill.textContent=katLabel[d.k]||d.k;
+  pill.style.background=t.pill;pill.style.color=t.pillTxt;
+  document.getElementById('soalan').textContent=d.s;
+  document.getElementById('jawapan-wrap').style.display='none';
+  document.getElementById('jawapan').textContent=d.j;
+  show('btn-show');hide('btn-tahu');hide('btn-ulang');
+  document.getElementById('btn-show').style.background=t.acc;
+  kemas();
+}
+
+function tunjuk(){document.getElementById('jawapan-wrap').style.display='block';hide('btn-show');show('btn-tahu');show('btn-ulang');}
+function mark(ok){if(ok)tahu++;else{ulang++;salahList.push(senarai[idx]);}idx++;render();}
+function skip(){idx++;render();}
+
+function kemas(){
+  const total=senarai.length;
+  document.getElementById('prog-fill').style.width=Math.round(idx/total*100)+'%';
+  document.getElementById('ctr').textContent='Kad '+(Math.min(idx+1,total))+' / '+total;
+  document.getElementById('skor').textContent='Tahu: '+tahu+' | Ulang: '+ulang;
+}
+
+function tunjukSummary(){
+  hide('card-outer');
+  const total=tahu+ulang,pct=total?Math.round(tahu/total*100):0;
+  document.getElementById('sum-sub').textContent='Anda tahu '+tahu+' daripada '+total+' kad ('+pct+'%). '+(salahList.length?salahList.length+' kad perlu diulang.':'Semua betul — tahniah!');
+  document.getElementById('sb2').style.display=salahList.length?'':'none';
+  show('summary');
+}
+
+mula();
+</script>
+</body>
+</html>
